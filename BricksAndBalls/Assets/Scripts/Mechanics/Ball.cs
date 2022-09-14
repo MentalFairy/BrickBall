@@ -1,3 +1,4 @@
+using BricksAndBalls.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace BricksAndBalls.Mechanics
         private void Awake()
         {
             rigidBody2D = GetComponent<Rigidbody2D>();
+            Main.Instance.ballsManager.RegisterBall(this);
         }
 
         internal void Throw(Vector2 direction)

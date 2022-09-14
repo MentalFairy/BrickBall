@@ -1,3 +1,4 @@
+using BricksAndBalls.Utils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,23 +26,23 @@ namespace BricksAndBalls.Mechanics
         [SerializeField]
         private Vector2 screenSize;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
+        {
+            Main.Instance.brickSpawner = this;
+        }
+
+        internal void SpawnLayer()
         {
             Vector3 cameraPos = Camera.main.transform.position;
             screenSize.x = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0))) * 0.5f;
             screenSize.y = Vector2.Distance(Camera.main.ScreenToWorldPoint(new Vector2(0, 0)), Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height))) * 0.5f;
-            SpawnLayer();
-        }
 
-        // Update is called once per frame
-        void Update()
-        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                child.position = new Vector3(child.position.x, child.position.y - 1);
+            }
 
-        }
-
-        void SpawnLayer()
-        {
             var brickLayerContent = new GameObject();
             brickLayerContent.transform.parent = transform;
             brickLayerContent.name = "Layer" + transform.childCount;

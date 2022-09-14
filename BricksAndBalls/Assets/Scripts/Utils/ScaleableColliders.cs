@@ -1,3 +1,4 @@
+using BricksAndBalls.Mechanics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,9 +27,10 @@ namespace BricksAndBalls.Utils
         [SerializeField]
         private Vector2 screenSize;
 
-        void Start()
+        void Awake()
         {
-            BuildColliders();
+            lastScreenResolution = Vector2.zero;
+            Main.Instance.scaleableColliders = this;
         }
 
         private void Update()
@@ -90,6 +92,8 @@ namespace BricksAndBalls.Utils
             colliders["Left"].position = new Vector3(cameraPos.x - screenSize.x - (colliders["Left"].localScale.x * 0.5f), cameraPos.y, zOffsetForCollider);
             colliders["Top"].position = new Vector3(cameraPos.x, cameraPos.y + screenSize.y + (colliders["Top"].localScale.y * 0.5f), zOffsetForCollider);
             colliders["Bottom"].position = new Vector3(cameraPos.x, cameraPos.y - screenSize.y - (colliders["Bottom"].localScale.y * 0.5f), zOffsetForCollider);
+
+            colliders["Bottom"].gameObject.AddComponent<DestroyBallOnImpact>();
         }
     }
 }

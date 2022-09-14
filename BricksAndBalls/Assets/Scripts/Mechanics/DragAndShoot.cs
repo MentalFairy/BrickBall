@@ -1,3 +1,4 @@
+using BricksAndBalls.Utils;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -55,6 +56,7 @@ namespace BricksAndBalls.Mechanics
             rb = GetComponent<Rigidbody2D>();
             line = GetComponent<LineRenderer>();
             screenLine = direction.GetComponent<LineRenderer>();
+            Main.Instance.dragAndShooter = this;
         }
 
         void Update()
@@ -154,7 +156,7 @@ namespace BricksAndBalls.Mechanics
         public IEnumerator Shoot()
         {
             mayShoot = false;
-            int ballsToThrow = GameStats.Instance.playerBallsCount;
+            int ballsToThrow = Main.Instance.gameStats.playerBallsCount;
             for (int i = 0; i < ballsToThrow; i++)
             {
                 var ball = Instantiate(ballPrefab, contentSpawnedBalls).GetComponent<Ball>();

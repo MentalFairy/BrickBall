@@ -1,10 +1,18 @@
+using BricksAndBalls.Utils;
 using Skrptr.Utility;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStats : Singleton<GameStats>
+namespace BricksAndBalls.Mechanics
 {
-    public int playerBallsCount = 3;
-    public int playerScore = 0;
+    public class GameStats : MonoBehaviour
+    {
+        public int playerBallsCount = 3;
+        public int playerScore = 0;
+        private void Awake()
+        {
+            Main.Instance.gameStats = this;
+        }
+    }
 }
