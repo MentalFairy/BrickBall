@@ -1,3 +1,5 @@
+using BricksAndBalls.Core;
+using BricksAndBalls.Gameplay;
 using BricksAndBalls.Utils;
 using System;
 using System.Collections;
@@ -13,6 +15,8 @@ namespace BricksAndBalls.Mechanics
         public int hitPoints = 0;
         [SerializeField]
         TextMeshPro hitPointsText;
+        [SerializeField]
+        int scoreIncrement = 1;
 
         [Header("Non-Tweakable Properties")]
         [SerializeField]
@@ -46,8 +50,15 @@ namespace BricksAndBalls.Mechanics
         private void DecrementHitPoints()
         {
             hitPointsText.text = $"{--hitPoints}";
+            var v = Simulation.Schedule<BallHitBrick>();
+            v.incrementValue = scoreIncrement;
             if (hitPoints == 0)
-                Destroy(gameObject);
+            {
+                if (transform.parent.childCount > 1)
+                    Destroy(gameObject);
+                else
+                    Destroy(transform.parent.gameObject);
+            }
         }
     }
 }

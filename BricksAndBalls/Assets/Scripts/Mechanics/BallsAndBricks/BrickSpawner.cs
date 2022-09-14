@@ -1,6 +1,7 @@
 using BricksAndBalls.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics
@@ -39,6 +40,16 @@ namespace BricksAndBalls.Mechanics
         private void Awake()
         {
             Main.Instance.brickSpawner = this;
+        }
+
+        /// <summary>
+        /// Checks if the game should end.
+        /// </summary>
+        /// <returns>True, if player loses</returns>
+        internal bool GameOver(int maxLayersBeforeLoss)
+        {
+            brickLayers = brickLayers.Where(x => x != null).ToList();
+            return brickLayers.Count >= maxLayersBeforeLoss;
         }
 
         internal void SpawnLayer()
