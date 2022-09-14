@@ -6,5 +6,5 @@ using UnityEngine;
 public class GameStats : Singleton<GameStats>
 {
     public int playerBallsCount = 3;
-
+    public int playerScore = 0;
 }
