@@ -8,7 +8,7 @@ namespace BricksAndBalls.Mechanics
 
     public class BrickSpawner : MonoBehaviour
     {
-        [Header("Tweakable Properties")]
+        [Header("Tweakable Properties For Bricks")]
         [SerializeField]
         GameObject brickPrefab;
 
@@ -17,6 +17,16 @@ namespace BricksAndBalls.Mechanics
 
         [SerializeField]
         Color[] brickColors;
+
+        [SerializeField]
+        float ySpacing = -1.1f;
+
+        [Header("Tweakable Properties For Power Ups")]
+        [SerializeField]
+        GameObject[] powerUpPrefabs;
+        [SerializeField]
+        [Range(0f, 1f)]
+        float powerUpProbability = .1f;
 
         [Header("Non-Tweakable Properties")]
         [SerializeField]
@@ -40,7 +50,7 @@ namespace BricksAndBalls.Mechanics
             for (int i = 0; i < transform.childCount; i++)
             {
                 var child = transform.GetChild(i);
-                child.position = new Vector3(child.position.x, child.position.y - 1);
+                child.position = new Vector3(child.position.x, child.position.y + ySpacing);
             }
 
             var brickLayerContent = new GameObject();
@@ -52,17 +62,44 @@ namespace BricksAndBalls.Mechanics
             var randomColor = brickColors[Random.Range(0, brickColors.Length - 1)];
             for (int i = 0; i < bricksPerLayer; i++)
             {
-                var brick = Instantiate(brickPrefab, brickLayerContent.transform).GetComponent<Brick>();
-                //Set their positions
-                brick.transform.position = new Vector3(-screenSize.x + incrementBetweenBricks * (i+.5f),
-                                                       screenSize.y - 1 + brick.transform.localScale.y / 3f);
-                //Scale them to fit
-                brick.transform.localScale = new Vector3(incrementBetweenBricks * .95f, 1);
-
-                brick.Init(transform.childCount, randomColor);
+                //Spawn powerup
+                if (Random.Range(0f, 1f) < powerUpProbability)
+                {
+                    SpawnPowerUp(brickLayerContent, incrementBetweenBricks, i);
+                }
+                else
+                {
+                    SpawnBrick(brickLayerContent, incrementBetweenBricks, randomColor, i);
+                }
             }
-
             brickLayers.Add(brickLayerContent.transform);
+        }
+
+        //Spawns a power up
+        private void SpawnPowerUp(GameObject brickLayerContent, float incrementBetweenBricks, int index)
+        {
+            var powerUp = Instantiate(powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length - 1)], brickLayerContent.transform);
+            powerUp.transform.position = new Vector3(-screenSize.x + incrementBetweenBricks * (index + .5f),
+                                                   screenSize.y - 1 + powerUp.transform.localScale.y / 3f);
+        }
+
+        /// <summary>
+        /// Spawns a brick
+        /// </summary>
+        /// <param name="parentGo">To whom the GO will be parented</param>
+        /// <param name="incrementBetweenBricks"> space to be left between</param>
+        /// <param name="randomColor"> Color of the brick</param>
+        /// <param name="index"> Index of the brick on respsective layer</param>
+        private void SpawnBrick(GameObject parentGo, float incrementBetweenBricks, Color randomColor, int index)
+        {
+            var brick = Instantiate(brickPrefab, parentGo.transform);
+            //Set their positions
+            brick.transform.position = new Vector3(-screenSize.x + incrementBetweenBricks * (index + .5f),
+                                                   screenSize.y - 1 + brick.transform.localScale.y / 3f);
+            //Scale them to fit
+            brick.transform.localScale = new Vector3(incrementBetweenBricks * .95f, 1);
+
+            brick.GetComponent<Brick>().Init(transform.childCount, randomColor);
         }
     }
 }

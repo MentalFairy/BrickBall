@@ -12,8 +12,6 @@ namespace BricksAndBalls.Mechanics
         public bool mayShoot = true;
         [SerializeField]
         float maxPower;
-        [SerializeField]
-        float shootPower;
 
         [SerializeField]
         public bool forwardDraging = true;
@@ -35,8 +33,6 @@ namespace BricksAndBalls.Mechanics
 
         [Header("Non-tweakable Properties")]
         [SerializeField]
-        Rigidbody2D rb;
-        [SerializeField]
         LineRenderer line;
         [SerializeField]
         LineRenderer screenLine;
@@ -53,7 +49,6 @@ namespace BricksAndBalls.Mechanics
 
         void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
             line = GetComponent<LineRenderer>();
             screenLine = direction.GetComponent<LineRenderer>();
             Main.Instance.dragAndShooter = this;
@@ -126,6 +121,24 @@ namespace BricksAndBalls.Mechanics
 
 
         // ACTIONS  
+        
+        public IEnumerator Shoot()
+        {
+            mayShoot = false;
+            int ballsToThrow = Main.Instance.gameStats.playerBallsCount;
+            for (int i = 0; i < ballsToThrow; i++)
+            {
+                var ball = Instantiate(ballPrefab, contentSpawnedBalls).GetComponent<Ball>();
+                ball.Throw(transform.right);
+                yield return new WaitForSeconds(delayBetweenBalls);
+            }
+        }
+
+        #region Line Drawing
+
+        /// <summary>
+        /// Computes the direction of the lines drawn on screen
+        /// </summary>
         void LookAtShootDirection()
         {
             Vector3 dir = startMousePos - currentMousePos;
@@ -143,29 +156,18 @@ namespace BricksAndBalls.Mechanics
             dis *= 4;
             if (dis < maxPower)
             {
-                direction.localPosition = new Vector2(dis / 6, 0);
-                shootPower = dis;
+                direction.localPosition = new Vector2(dis, 0);
             }
             else
             {
-                shootPower = maxPower;
-                direction.localPosition = new Vector2(maxPower / 6, 0);
+                direction.localPosition = new Vector2(maxPower, 0);
             }
 
         }
-        public IEnumerator Shoot()
-        {
-            mayShoot = false;
-            int ballsToThrow = Main.Instance.gameStats.playerBallsCount;
-            for (int i = 0; i < ballsToThrow; i++)
-            {
-                var ball = Instantiate(ballPrefab, contentSpawnedBalls).GetComponent<Ball>();
-                ball.Throw(transform.right);
-                yield return new WaitForSeconds(delayBetweenBalls);
-            }
-        }
 
-        #region Line Drawing
+        /// <summary>
+        /// Draws the thin white line from mouse click to mouse release
+        /// </summary>
         void DrawScreenLine()
         {
             screenLine.positionCount = 1;
@@ -175,6 +177,10 @@ namespace BricksAndBalls.Mechanics
             screenLine.SetPosition(1, currentMousePos);
         }
 
+
+        /// <summary>
+        /// Draws the line from initial position
+        /// </summary>
         void DrawLine()
         {
             startPosition = transform.position;

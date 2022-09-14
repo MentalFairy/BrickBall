@@ -27,10 +27,11 @@ namespace BricksAndBalls.Utils
         [SerializeField]
         private Vector2 screenSize;
 
-        void Awake()
+        void Start()
         {
             lastScreenResolution = Vector2.zero;
-            Main.Instance.scaleableColliders = this;
+            if (Application.isPlaying)
+                Main.Instance.scaleableColliders = this;
         }
 
         private void Update()
