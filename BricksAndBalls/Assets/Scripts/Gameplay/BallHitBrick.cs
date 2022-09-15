@@ -13,7 +13,7 @@ namespace BricksAndBalls.Gameplay
         {
             //Play audio if you want or smth
             Main.Instance.gameStats.playerScore += incrementValue;
-            UiMain.Instance.panelHuD.UpdateScore();
+            UiMain.Instance.panelHuD?.UpdateScore();
         }
     }
 }
