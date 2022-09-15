@@ -2,9 +2,6 @@ using BricksAndBalls.Mechanics;
 using BricksAndBalls.Utils;
 using Skrptr;
 using Skrptr.Components;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -24,7 +21,6 @@ namespace BricksAndBalls.Ui
         private void Awake()
         {
             UiMain.Instance.panelHighScores = this;
-            //HighScores.RegenerateCleanScores(100);
         }
         public override void Execute(SkrptrEvent currentSkrptrEvent)
         {
@@ -34,6 +30,9 @@ namespace BricksAndBalls.Ui
             }
         }
 
+        /// <summary>
+        /// Spawns all highscores currently loaded.
+        /// </summary>
         private void SpawnHighscores()
         {
             var scores = HighScores.GetScores().OrderByDescending(s => s.score).ToList();

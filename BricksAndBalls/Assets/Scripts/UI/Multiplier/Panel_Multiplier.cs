@@ -1,6 +1,4 @@
 using BricksAndBalls.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BricksAndBalls.Ui

@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace BricksAndBalls.Ui
 {
+    /// <summary>
+    /// Represents and references componnents of one score label in ui.
+    /// </summary>
     public class Ui_HighScore : MonoBehaviour
     {
         [Header("References")]

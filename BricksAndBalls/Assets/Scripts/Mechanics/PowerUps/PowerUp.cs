@@ -1,11 +1,11 @@
 using BricksAndBalls.Utils;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics.PowerUps
 {
+    /// <summary>
+    /// Abstract implementation of a power up - inherit from this to implement custom ones.
+    /// </summary>
     public abstract class PowerUp : MonoBehaviour
     {
        

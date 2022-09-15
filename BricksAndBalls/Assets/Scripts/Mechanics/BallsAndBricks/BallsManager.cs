@@ -1,11 +1,12 @@
 using BricksAndBalls.Utils;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics
 {
+    /// <summary>
+    /// Manages all current balls, when there are no more balls, proceeds to next level.
+    /// </summary>
     public class BallsManager : MonoBehaviour
     {
         [Header("Non-Tweakable Properties")]

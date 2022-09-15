@@ -1,11 +1,11 @@
 using BricksAndBalls.Core;
 using BricksAndBalls.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace BricksAndBalls.Gameplay
 {
+    /// <summary>
+    /// Fired to add one extra ball to the player shooter.
+    /// </summary>
     public class AddExtraBall : Simulation.Event<AddExtraBall>
     {
         public override void Execute()

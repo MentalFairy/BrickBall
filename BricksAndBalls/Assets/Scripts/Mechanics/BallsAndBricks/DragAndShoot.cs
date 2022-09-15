@@ -1,7 +1,6 @@
 using BricksAndBalls.Utils;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 
 namespace BricksAndBalls.Mechanics
@@ -120,8 +119,10 @@ namespace BricksAndBalls.Mechanics
         #endregion
 
 
-        // ACTIONS  
         
+        /// <summary>
+        /// Shoots as many balls as the player has in the direction pointed.
+        /// </summary>
         public IEnumerator Shoot()
         {
             mayShoot = false;

@@ -1,13 +1,16 @@
 using BricksAndBalls.Core;
 using BricksAndBalls.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace BricksAndBalls.Gameplay
 {
+    /// <summary>
+    /// Fired when A ball hits a brick.
+    /// </summary>
     public class BallHitBrick : Simulation.Event<BallHitBrick>
     {
+        /// <summary>
+        /// Value by which local player score will be incremented.
+        /// </summary>
         public int incrementValue = 0;
         public override void Execute()
         {

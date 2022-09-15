@@ -2,6 +2,8 @@
 
 namespace BricksAndBalls.Gameplay
 {
+    //EXAMPLE ONLY:
+
     /// <summary>
     /// Fired when the player has died.
     /// </summary>

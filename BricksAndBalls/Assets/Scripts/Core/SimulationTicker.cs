@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace BricksAndBalls.Core
 {
+    /// <summary>
+    /// Ensures the simulation actually executes.
+    /// </summary>
     public class SimulationTicker : MonoBehaviour
     {
         void Update()

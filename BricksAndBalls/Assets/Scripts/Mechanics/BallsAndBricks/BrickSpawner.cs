@@ -1,5 +1,4 @@
 using BricksAndBalls.Utils;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -52,6 +51,10 @@ namespace BricksAndBalls.Mechanics
             return brickLayers.Count >= maxLayersBeforeLoss;
         }
 
+        /// <summary>
+        /// Spawns a layer based on current screen resolution.
+        /// Based on probability, also spawns random power ups.
+        /// </summary>
         internal void SpawnLayer()
         {
             Vector3 cameraPos = Camera.main.transform.position;

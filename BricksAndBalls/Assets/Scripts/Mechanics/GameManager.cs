@@ -1,13 +1,14 @@
 using BricksAndBalls.Utils;
 using Skrptr.Elements;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics
 {
     public class GameManager : MonoBehaviour
     {
+        /// <summary>
+        /// Represents how many layers can exist before it ends the game with a loss.
+        /// </summary>
         [SerializeField]
         int maxLayersBeforeLoss = 7;
         private void Awake()
@@ -18,6 +19,10 @@ namespace BricksAndBalls.Mechanics
         {
             NextLayer();
         }
+
+        /// <summary>
+        /// Loads next layer if game did not meet end conditions.
+        /// </summary>
         internal void NextLayer()
         {
             //Check end game

@@ -2,8 +2,6 @@ using BricksAndBalls.Mechanics;
 using BricksAndBalls.Utils;
 using Skrptr;
 using Skrptr.Components;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,6 +21,11 @@ namespace BricksAndBalls.Ui
             }
         }
 
+        /// <summary>
+        /// Loads available scores, searches for current player score.
+        /// If found, increments it, if not, adds it.
+        /// Then saves scores.
+        /// </summary>
         private void MultiplyAndUpdateScores()
         {
             var scores = HighScores.LoadScores(100);

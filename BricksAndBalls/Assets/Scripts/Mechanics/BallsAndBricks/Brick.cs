@@ -1,9 +1,6 @@
 using BricksAndBalls.Core;
 using BricksAndBalls.Gameplay;
 using BricksAndBalls.Utils;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -26,6 +23,9 @@ namespace BricksAndBalls.Mechanics
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
+        /// <summary>
+        /// Initialize the brick with values.
+        /// </summary>
         public void Init(int hitPoints, Color color)
         {
             this.hitPoints = hitPoints;
@@ -47,6 +47,9 @@ namespace BricksAndBalls.Mechanics
             }
         }
 
+        /// <summary>
+        /// Decrements the hitpoints, and updates label.
+        /// </summary>
         private void DecrementHitPoints()
         {
             hitPointsText.text = $"{--hitPoints}";

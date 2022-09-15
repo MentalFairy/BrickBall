@@ -1,10 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics
 {
+    /// <summary>
+    /// Wrapper class to avoid using dictionaries because of read-only values in foreach loops
+    /// </summary>
     public class HighScore
     {
         public string username;
@@ -19,8 +21,21 @@ namespace BricksAndBalls.Mechanics
 
     public static class HighScores 
     {
+        /// <summary>
+        /// Used to store as keys in player prefs procedurally.
+        /// Definitely not a solution for thousands of players!
+        /// </summary>
         const string playerScoreKey = "player";
+        /// <summary>
+        /// Contains all currently loaded scores.
+        /// </summary>
         static List<HighScore> scores = new List<HighScore>();
+
+        /// <summary>
+        /// Loads all scores and generates random scores if asked to load more than it has.
+        /// </summary>
+        /// <param name="playersToLoad">How many players should load.</param>
+        /// <returns>The loaded scores. </returns>
         internal static List<HighScore> LoadScores(int playersToLoad)
         {
             scores.Clear();
@@ -41,6 +56,11 @@ namespace BricksAndBalls.Mechanics
             return scores;
         }
 
+
+        /// <summary>
+        /// FOR DEBUGGIN / TESTING ONLY
+        /// Clears , regenerates random scores, and saves them.
+        /// </summary>
         internal static void RegenerateCleanScores(int playersToLoad)
         {
             scores.Clear();
@@ -52,12 +72,18 @@ namespace BricksAndBalls.Mechanics
             LoadScores(100);
         }
 
-
+        /// <summary>
+        /// Adds a new score to the current loaded list.
+        /// </summary>
         internal static void AddScore(string username, int score)
         {
             scores.Add(new HighScore(username, score));
         }
 
+        /// <summary>
+        /// Saves all scores to player prefs.
+        /// </summary>
+        /// <returns>True, if successful.</returns>
         internal static bool SaveScores()
         {
             int i = 0;
@@ -66,6 +92,9 @@ namespace BricksAndBalls.Mechanics
             return true;
         }
 
+        /// <summary>
+        /// Multiplies all scores in current load by value given.
+        /// </summary>
         internal static void MultiplyScores(int multiplier)
         {
             foreach (var score in scores)
@@ -74,6 +103,9 @@ namespace BricksAndBalls.Mechanics
             }
         }
 
+        /// <summary>
+        /// Attempts to increment the score of requested player by value, if it exists in current load.
+        /// </summary>
         internal static void IncrementScoreOfPlayer(string username, int value)
         {
             var score = scores.FirstOrDefault(s => s.username == "You");
@@ -88,6 +120,8 @@ namespace BricksAndBalls.Mechanics
             return scores;
         }
 
+        #region Random Generation
+
         //Used for random string generation
         private static System.Random random = new System.Random();
         /// <summary>
@@ -100,5 +134,7 @@ namespace BricksAndBalls.Mechanics
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+
+        #endregion
     }
 }

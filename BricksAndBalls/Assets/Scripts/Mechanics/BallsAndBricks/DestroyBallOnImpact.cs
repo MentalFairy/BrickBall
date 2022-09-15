@@ -1,10 +1,11 @@
 using BricksAndBalls.Utils;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BricksAndBalls.Mechanics
 {
+    /// <summary>
+    /// Destroy the ball if it comes in contact with this GO attached collider.
+    /// </summary>
     public class DestroyBallOnImpact : MonoBehaviour
     {
         private void OnCollisionEnter2D(Collision2D collision)
