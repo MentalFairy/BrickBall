@@ -5,14 +5,11 @@ using UnityEngine;
 
 namespace BricksAndBalls.Core
 {
-    public class SimulationTicker : Singleton<SimulationTicker>
+    public class SimulationTicker : MonoBehaviour
     {
         void Update()
         {
-            if (Instance == this)
-            {
-                Simulation.Tick();
-            }
+            Simulation.Tick();
         }
     }
 }
