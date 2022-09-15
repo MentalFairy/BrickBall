@@ -40,8 +40,10 @@ namespace BricksAndBalls.Ui
             }
             scores = HighScores.GetScores();
             HighScores.MultiplyScores(multiplyValue);
+
             HighScores.SaveScores();
 
+            Main.Instance.gameStats.playerScore *= multiplyValue;
             UiMain.Instance.panelHuD.UpdateScore();
         }
     }
